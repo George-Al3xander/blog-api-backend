@@ -31,10 +31,10 @@ const get_comments = (req, res) => {
 }
 
 const post_comment = (req, res) => {  
-    const id = req.params.id;    
+    const id = req.params.id;        
     Post.findById(id).then((post) => {
         Post.findByIdAndUpdate(id, {
-            comments: [...post.comments, {...req.body, date: new Date()}]
+            comments: [...post.comments, req.body]
         })
         .then((result) => {
             res.json("Made a comment")
@@ -44,10 +44,19 @@ const post_comment = (req, res) => {
     
 }
 
+const test = (req, res) => {
+    if(req.user) {
+        res.json("Welcome back, " + req.user.username)
+    } else {
+        res.json("No users found!")
+    }
+}
+
 
 module.exports = {
     index,
     details,
     get_comments,
-    post_comment
+    post_comment,
+    test
 }

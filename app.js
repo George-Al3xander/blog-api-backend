@@ -4,12 +4,15 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require("dotenv").config();
-
+const User = require("./models/modelUser.js")
+const cors = require("cors")
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const postsRouter = require("./routes/posts")
+const adminRouter = require("./routes/admin")
 const mongoose = require("mongoose")
+
 const app = express();
+app.use(cors())
 const dbURI =  process.env.DB_URI;
 mongoose.connect(dbURI , {useNewUrlParser: true, useUnifiedTopology: true}).then((r) => {app.listen(3000);console.log("connected to db")}).catch((err) => {
   console.log(err)
@@ -26,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
+app.use('/admin', adminRouter);
 
 
 // catch 404 and forward to error handler
