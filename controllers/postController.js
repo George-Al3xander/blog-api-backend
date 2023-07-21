@@ -2,7 +2,6 @@ const Post = require("../models/postModel.js")
 
 
 const index = (req, res) => {
-const Post = require("../models/postModel.js")
     Post.find({publication_status: true})
     .then((result) => {
         res.json(result)
@@ -31,16 +30,20 @@ const get_comments = (req, res) => {
 }
 
 const post_comment = (req, res) => {  
-    const id = req.params.id;        
+    const id = req.params.id; 
+    if(req.body.username == undefined || req.body.text == undefined) {
+        res.sendStatus(500)
+    } else {
     Post.findById(id).then((post) => {
         Post.findByIdAndUpdate(id, {
-            comments: [...post.comments, req.body]
+            comments: [...post.comments, {...req.body, id: post.comments.length, date: new Date()}]
         })
         .then((result) => {
             res.json("Made a comment")
         })
     })
     .catch(() => res.status(404))
+    }   
     
 }
 
