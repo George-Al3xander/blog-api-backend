@@ -3,6 +3,17 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/modelUser.js")
 const bcrypt = require("bcryptjs")
 
+
+
+const index = (req, res) => {
+    Post.find()
+    .then((result) => {
+        res.json(result)
+    })
+    .catch(() => res.status(404))
+}
+
+
 const log_in = (req, res) => {
     User.find({username: req.body.username}).then((user) => {        
         if(user.length > 0) {
@@ -166,7 +177,9 @@ const delete_comment = (req, res) => {
 
 
 
+
 module.exports = {
+    index,
     log_in,
     edit_post,
     make_post,

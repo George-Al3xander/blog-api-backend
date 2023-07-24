@@ -1,6 +1,6 @@
 const Post = require("../models/postModel.js")
 
-
+ 
 const index = (req, res) => {
     Post.find({publication_status: true})
     .then((result) => {

@@ -6,9 +6,8 @@ const logger = require('morgan');
 require("dotenv").config();
 const User = require("./models/modelUser.js")
 const cors = require("cors")
-const indexRouter = require('./routes/index');
+
 const postsRouter = require("./routes/posts")
-const adminRouter = require("./routes/admin")
 const mongoose = require("mongoose")
 
 const app = express();
@@ -27,10 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/posts', postsRouter);
-app.use('/admin', adminRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
