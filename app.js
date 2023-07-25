@@ -11,7 +11,13 @@ const postsRouter = require("./routes/posts")
 const mongoose = require("mongoose")
 
 const app = express();
-app.use(cors())
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) 
 const dbURI =  process.env.DB_URI;
 mongoose.connect(dbURI , {useNewUrlParser: true, useUnifiedTopology: true}).then((r) => {app.listen(3000);console.log("connected to db")}).catch((err) => {
   console.log(err)
