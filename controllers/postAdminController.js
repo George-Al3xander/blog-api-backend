@@ -21,7 +21,7 @@ const log_in = (req, res) => {
         const result = bcrypt.compareSync(req.body.password, user.password);
         if(result) {
             jwt.sign({user}, process.env.SECRET_KEY, (err, token) => {
-               res.send(process.env.REDIRECT_URI + `?token=${token}` )
+               res.json({token})
             });  
         } else {
             res.sendStatus(403)
