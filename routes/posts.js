@@ -24,12 +24,7 @@ router.get("/:id", controller.details);
 router.get("/:id/comments",controller.get_comments);
 router.post("/:id/comments",controller.post_comment);
 
-router.options('/log-in', function (req, res) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', '*');
-    res.setHeader("Access-Control-Allow-Headers", "*");
-    res.end();
-  });
+
 
 router.post("/log-in", controllerAdmin.log_in);
 

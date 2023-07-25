@@ -11,13 +11,13 @@ const postsRouter = require("./routes/posts")
 const mongoose = require("mongoose")
 
 const app = express();
-const corsOptions ={
-  origin:'https://george-al3xander.github.io/blog-api-frontend-edit', 
+
+
+app.use(cors({
+  origin:'*', 
   credentials:true,            
   optionSuccessStatus:200,
-}
-
-app.use(cors(corsOptions)) 
+})) 
 const dbURI =  process.env.DB_URI;
 mongoose.connect(dbURI , {useNewUrlParser: true, useUnifiedTopology: true}).then((r) => {app.listen(3000);console.log("connected to db")}).catch((err) => {
   console.log(err)
@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.options('*', cors())
 app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
