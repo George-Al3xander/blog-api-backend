@@ -12,7 +12,7 @@ const mongoose = require("mongoose")
 
 const app = express();
 const corsOptions ={
-  origin:'*', 
+  origin:'https://george-al3xander.github.io/blog-api-frontend-edit', 
   credentials:true,            
   optionSuccessStatus:200,
 }
